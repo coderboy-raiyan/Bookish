@@ -9,6 +9,7 @@ urlpatterns = [
     path('', Home.as_view(), name="home"),
     path("books/<slug:book_slug>", Home.as_view(), name="book_slug"),
     path('customers/', include("customers.urls")),
+    path("books/", include("books.urls"))
 
 ]
 

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block content %}
+    <section class="py-10 bg-[#FBEDEB]">
+        <div class="container mx-auto bg-white rounded-lg">
+            <div class="grid lg:grid-cols-2 grid-cols-1 lg:gap-0 gap-y-5 py-10  shadow-lg p-10">
+                <div class="mx-auto ">
+                    <img class="border p-3 shadow" src="{{book.image.url}}" alt="">
+                </div>
+    
+                <div class="mx-auto space-y-4">
+                    <h1 class="text-xl font-semibold">{{book.title}}</h1>
+                    <p class="text-sm">
+                        {{book.description}}
+                    </p>
+                    <div class="">
+                        {% for category in book.categories.all %}
+                            <span class="inline-block bg-green-600 rounded-full px-3 py-1 text-sm font-semibold text-white mr-2 mb-2 ">#{{ category.name }}</span>
+                        {% endfor %}
+                    </div>
+                    <button class="text-lg hover:bg-indigo-800 font-bold bg-indigo-600 py-2 px-5 text-white font-medium rounded">Borrow Price : $ {{book.borrowing_price|intcomma }}</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+{% endblock content %}
