@@ -17,7 +17,7 @@ class BookModel(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to="books/media/uploads/")
     categories = models.ManyToManyField(
-        CategoryModel, related_name="books", null=True, blank=True)
+        CategoryModel, related_name="books")
     borrowing_price = models.DecimalField(
         max_digits=12, decimal_places=2, default=0)
 
