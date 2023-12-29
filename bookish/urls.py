@@ -7,6 +7,7 @@ from core.views import Home
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', Home.as_view(), name="home"),
+    path("books/<slug:book_slug>", Home.as_view(), name="book_slug"),
     path('customers/', include("customers.urls")),
 
 ]

@@ -1,5 +1,43 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Hello world</h1>
+    {% include "hero.html" %}
+
+    {% comment %} Category List {% endcomment %}
+   <section class="py-10">
+    <h1  class="drop-shadow text-center mt-2 mb-16 text-5xl font-bold tracking-tight md:text-6xl xl:text-7xl">Books and Categories</h1>
+        <ul class="container mx-auto flex jusity-between items-center gap-4 flex-wrap">
+            <li class="border border-gray-900 text-sm font-bold rounded hover:text-green-700 border-2 capitalize py-2 px-4 transition">
+                <a href="{%url "home"%}">All</a>
+            </li>
+            {% for cate in categories %}
+                <li class="border border-gray-900 text-sm font-bold rounded hover:text-green-700 border-2 capitalize py-2 px-4 transition">
+                    <a href="{%url 'book_slug' cate.slug%}">{{cate.name}}</a>
+                </li>
+            {% endfor %}
+        </ul>
+   </section>
+
+
+   {% comment %} Books {% endcomment %}
+   <section>
+    <div class="container mx-auto grid grid-cols-4 gap-4 my-10">
+        {% for book in books %}
+        <div class="max-w-sm rounded overflow-hidden shadow-lg border">
+            <img class="w-full h-[200px] object-contain block py-2" src="{{book.image.url}}" alt="Sunset in the mountains">
+            <div class="px-6 py-4">
+            <div class="text-sm text-[#0F1111]">{{book.title}}</div>
+            <p class="text-gray-700 text-gray-900 font-medium my-4">
+               {{book.description | truncatechars:30}} <a href="" class="text-green-600 underline">Details</a>
+            </p>
+            </div>
+            <div class="px-6  pb-2">
+                {% for category in book.categories.all %}
+                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{{ category.name }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+   </section>
 {% endblock content %}
