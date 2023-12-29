@@ -19,7 +19,7 @@
                             <span class="inline-block bg-green-600 rounded-full px-3 py-1 text-sm font-semibold text-white mr-2 mb-2 ">#{{ category.name }}</span>
                         {% endfor %}
                     </div>
-                    <button class="text-lg hover:bg-indigo-800 font-bold bg-indigo-600 py-2 px-5 text-white font-medium rounded">Borrow Price : $ {{book.borrowing_price|intcomma }}</button>
+                    <a role="button" href="{%url 'borrow' book.id%}" class="text-lg block hover:bg-indigo-800 font-bold bg-indigo-600 py-2 px-5 text-white font-medium rounded lg:w-2/5">Borrow Price : $ {{book.borrowing_price|intcomma }}</a>
                 </div>
             </div>
 

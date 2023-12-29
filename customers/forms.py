@@ -22,10 +22,10 @@ class UserSignUpForm(UserCreationForm):
 
         if commit:
             user.save()
-            phone_no = self.cleaned_data.get("phone_no"),
-            gender = self.cleaned_data.get("gender"),
-            street_address = self.cleaned_data.get("street_address"),
-            city = self.cleaned_data.get("city"),
+            phone_no = self.cleaned_data.get("phone_no")
+            gender = self.cleaned_data.get("gender")
+            street_address = self.cleaned_data.get("street_address")
+            city = self.cleaned_data.get("city")
 
             CustomerModel.objects.create(
                 phone_no=phone_no,
