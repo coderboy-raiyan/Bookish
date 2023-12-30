@@ -130,7 +130,7 @@ class ReturnBookView(LoginRequiredMixin, View):
                 customer.customer_id}""",
             f"""Your book amount ${transaction.amount} has been refunded""")
 
-        messages.success(request, f"""The
+        messages.success(self.request, f"""The
                          ({transaction.book.title}) has been returned. And your balance has been refunded by ${transaction.amount}""")
 
         return redirect("profile")
