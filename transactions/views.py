@@ -91,6 +91,10 @@ class BorrowView(TransactionViewMixin):
         # Get the amount from the form
         amount = book.borrowing_price
 
+        if customer.balance < amount:
+            messages.error(self.request, "You don't have sufficient money")
+            return redirect("profile")
+
         customer.balance -= amount
 
         customer.save(
