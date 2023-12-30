@@ -3,8 +3,8 @@ from django.views.generic import FormView
 from django.urls import reverse_lazy
 from .forms import UserSignUpForm, UserUpdateForm
 from django.contrib import messages
-from django.contrib.auth import login
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth import login, logout
+from django.contrib.auth.views import LoginView
 from django.views.generic import View
 from transactions.models import TransactionModel
 from transactions.constants import BORROW
@@ -31,10 +31,16 @@ class UserSignInView(LoginView):
         return reverse_lazy("home")
 
 
-class UserLogoutView(LogoutView):
-    def get_success_url(self):
-        messages.success(self.request, "Logged out successfully")
-        return reverse_lazy("home")
+# class UserLogoutView(LogoutView):
+#     def get_success_url(self):
+#         messages.success(self.request, "Logged out successfully")
+#         return reverse_lazy("home")
+
+def user_logout(request):
+    logout(request)
+    messages.success(request, "Logged out successfully")
+    return redirect("home")
+
 
 
 class UserProfileView(LoginRequiredMixin, View):
