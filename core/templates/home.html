@@ -22,9 +22,9 @@
    {% comment %} Books {% endcomment %}
    <section class="bg-[#FBEDEB]">
        <h1 class="container mx-auto text-lg font-bold underline">Total Books : {{books | length}}</h1>
-    <div class="container mx-auto grid grid-cols-4 gap-4 py-10 ">
+    <div class="container mx-auto grid lg:grid-cols-4 grid-cols-1 gap-4 py-10 ">
         {% for book in books %}
-        <div class="max-w-sm rounded-lg overflow-hidden shadow-lg border bg-white">
+        <div class="max-w-sm  mx-auto  rounded-lg overflow-hidden shadow-lg border bg-white">
             <img class="w-full h-[200px] object-contain block py-4" src="{{book.image.url}}" alt="Sunset in the mountains">
             <div class="px-6 py-4">
             <div class="text-sm text-[#0F1111]">{{book.title}}</div>

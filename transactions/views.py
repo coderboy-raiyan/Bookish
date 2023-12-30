@@ -8,6 +8,7 @@ from .constants import DEPOSIT, RETURN, BORROW
 from django.contrib import messages
 from django.urls import reverse_lazy
 from books.models import BookModel
+from email_system.utils.email import send_transaction_emails
 # Create your views here.
 
 
@@ -50,6 +51,12 @@ class DepositView(TransactionViewMixin):
             update_fields=['balance']
         )
 
+        send_transaction_emails(
+            self.request.user,
+            self.request.user.email,
+            f"Balance Deposited Customer ID : {customer.customer_id}",
+            f"""Your deposit request for ${amount} has successfully completed. After deposit your total amount is {customer.balance}""")
+
         messages.success(self.request, f"""{"{:,.2f}".format(
             float(amount))}$ was deposited to your account successfully""")
 
@@ -90,7 +97,13 @@ class BorrowView(TransactionViewMixin):
             update_fields=['balance']
         )
 
-        messages.success(self.request, f""" Book has been borrowed and your current amount is ${
+        send_transaction_emails(
+            self.request.user,
+            self.request.user.email,
+            f"Book has been borrowed by Customer : {customer.customer_id}",
+            f"""You have successfully borrowed this book : ({book.title}) cost of : ${amount}""")
+
+        messages.success(self.request, f""" Book has been borrowed and your current balance is ${
                          customer.balance} """)
 
         return super().form_valid(form)
@@ -106,6 +119,14 @@ class ReturnBookView(LoginRequiredMixin, View):
         customer.balance += transaction.amount
         customer.save()
         transaction.save()
+        send_transaction_emails(
+            self.request.user,
+            self.request.user.email,
+            f"Thanks for returning the book by Customer ID : {
+                customer.customer_id}",
+            f"""Your book amount ${transaction.amount} has been refunded""")
+
         messages.success(request, f"""The ({
                          transaction.book.title}) has been returned. And your balance has been refunded by ${transaction.amount}""")
+
         return redirect("profile")
