@@ -107,7 +107,8 @@ class BorrowView(TransactionViewMixin):
             f"Book has been borrowed by Customer : {customer.customer_id}",
             f"""You have successfully borrowed this book : ({book.title}) cost of : ${amount}""")
 
-        messages.success(self.request, f""" Book has been borrowed and your current balance is ${customer.balance} """)
+        messages.success(self.request, f""" Book has been borrowed and your current balance is ${
+                         customer.balance} """)
 
         return super().form_valid(form)
 
@@ -125,8 +126,8 @@ class ReturnBookView(LoginRequiredMixin, View):
         send_transaction_emails(
             self.request.user,
             self.request.user.email,
-            f"Thanks for returning the book by Customer ID : 
-            {customer.customer_id}",
+            f"""Thanks for returning the book by Customer ID : {
+                customer.customer_id}""",
             f"""Your book amount ${transaction.amount} has been refunded""")
 
         messages.success(request, f"""The
