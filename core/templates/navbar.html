@@ -42,17 +42,17 @@
         <div class="flex w-auto">
           <div class="text-indigo-700 my-auto font-black px-5">Welcome, {{ request.user.first_name }} (Balance : ${{request.user.customer.balance|intcomma}}) </div>
 
-            <a class="mx-2 inline-block font-medium text-sm px-4 py-2 leading-none bg-blue-900 rounded text-white border-white bg-green-600 hover:bg-green-700">Profile</a>
+            <a href="{%url 'profile'%}" class="mx-2 inline-block font-medium text-sm px-4 py-2 leading-none bg-blue-900 rounded text-white border-white bg-green-600 hover:bg-green-700">Profile</a>
 
-            <a   class="mx-2 inline-block font-medium text-sm px-4 py-2 leading-none bg-blue-900 rounded text-white border-white bg-green-600 hover:bg-green-700">Logout</a>
+            <a  href="{%url 'logout'%}" class="mx-2 inline-block font-medium text-sm px-4 py-2 leading-none bg-blue-900 rounded text-white border-white bg-green-600 hover:bg-green-700">Logout</a>
         </div>
     {% else %}
         <div class="text-md lg:flex-grow"></div>
         <div>
-            <a href="{%url 'signin'%}"   class="mr-2 inline-block font-medium text-sm px-4 py-2 leading-none bg-blue-900 rounded text-white border-white hover:border-transparent hover:text-green-800 hover:bg-red-700 mt-4 lg:mt-0">Login</a>
+            <a href="{%url 'signin'%}"   class="mx-2 inline-block font-medium text-sm px-4 py-2 leading-none bg-blue-900 rounded text-white border-white bg-green-600 hover:bg-green-700">Login</a>
         </div>
         <div>
-            <a href="{%url 'signup'%}" class="inline-block font-medium text-sm px-4 py-2 leading-none bg-blue-900 rounded text-white border-white hover:border-transparent hover:text-gray-800 hover:bg-white mt-4 lg:mt-0">Register</a>
+            <a href="{%url 'signup'%}" class="mx-2 inline-block font-medium text-sm px-4 py-2 leading-none bg-blue-900 rounded text-white border-white bg-green-600 hover:bg-green-700">Register</a>
         </div>
     {% endif %}
       </ul>
