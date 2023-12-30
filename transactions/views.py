@@ -116,21 +116,23 @@ class BorrowView(TransactionViewMixin):
 class ReturnBookView(LoginRequiredMixin, View):
     def get(self, request, id):
         transaction = get_object_or_404(TransactionModel, pk=id)
-        print(transaction)
 
         transaction.transaction_type = RETURN
         customer = self.request.user.customer
         customer.balance += transaction.amount
         customer.save()
         transaction.save()
+
+        messages.success(
+            self.request,
+            f"""The book {transaction.book.title} has been returned,and your balance has been refunded by ${transaction.amount}."""
+        )
+
         send_transaction_emails(
             self.request.user,
             self.request.user.email,
             f"""Thanks for returning the book by Customer ID : {
                 customer.customer_id}""",
             f"""Your book amount ${transaction.amount} has been refunded""")
-
-        messages.success(self.request, f"""The
-                         ({transaction.book.title}) has been returned. And your balance has been refunded by ${transaction.amount}""")
 
         return redirect("profile")
