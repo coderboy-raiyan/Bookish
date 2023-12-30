@@ -32,6 +32,7 @@ class ReviewModel(models.Model):
         User, related_name="reviews", on_delete=models.CASCADE)
     content = models.TextField()
     ratings = models.IntegerField(choices=RATINGS)
+    timestamps = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     def __str__(self) -> str:
         return self.user.username
