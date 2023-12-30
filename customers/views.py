@@ -6,6 +6,9 @@ from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic import View
+from transactions.models import TransactionModel
+from transactions.constants import BORROW
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class UserSignUpView(FormView):
@@ -34,12 +37,14 @@ class UserLogoutView(LogoutView):
         return reverse_lazy("home")
 
 
-class UserProfileView(View):
+class UserProfileView(LoginRequiredMixin, View):
     template_name = "customers/profile.html"
 
     def get(self, request):
         form = UserUpdateForm(instance=request.user)
-        return render(request, self.template_name, {"form": form})
+        borrows = TransactionModel.objects.filter(
+            transaction_type=BORROW, customer=self.request.user.customer)
+        return render(request, self.template_name, {"form": form, "borrows": borrows})
 
     def post(self, request):
         form = UserUpdateForm(request.POST, instance=request.user)

@@ -1,7 +1,7 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import CreateView
+from django.views.generic import CreateView, View
 from .models import TransactionModel
 from .forms import DepositForm, BorrowForm
 from .constants import DEPOSIT, RETURN, BORROW
@@ -94,3 +94,18 @@ class BorrowView(TransactionViewMixin):
                          customer.balance} """)
 
         return super().form_valid(form)
+
+
+class ReturnBookView(LoginRequiredMixin, View):
+    def get(self, request, id):
+        transaction = get_object_or_404(TransactionModel, pk=id)
+        print(transaction)
+
+        transaction.transaction_type = RETURN
+        customer = self.request.user.customer
+        customer.balance += transaction.amount
+        customer.save()
+        transaction.save()
+        messages.success(request, f"""The ({
+                         transaction.book.title}) has been returned. And your balance has been refunded by ${transaction.amount}""")
+        return redirect("profile")
