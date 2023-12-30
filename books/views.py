@@ -6,6 +6,7 @@ from .forms import ReviewForm
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.shortcuts import redirect
+from .models import ReviewModel
 
 # Create your views here.
 
@@ -16,9 +17,19 @@ class BookDetailsView(DetailView):
     pk_url_kwarg = "id"
     context_object_name = "book"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        id = self.kwargs['id']
+        book = BookModel.objects.get(pk=id)
+        reviews = ReviewModel.objects.filter(book=book)
+        context.update({
+            'reviews': reviews
+        })
+        return context
 
 # def returnBook(request, id) :
 #     transaction = TransactionModel.objects.get(pk=id)
+
 
 class BookReviewView(LoginRequiredMixin, CreateView):
     template_name = "books/book_review.html"

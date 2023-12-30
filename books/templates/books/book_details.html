@@ -26,5 +26,20 @@
             </div>
 
         </div>
+
+        {% comment %} Book reviews {% endcomment %}
+        {% if reviews %}
+        <div class="my-2">
+            <h1 class="text-2xl font-bold my-4 text-center">User Reviews</h1>
+            {% for review in reviews %}
+                <div class="container mx-auto bg-white rounded-lg p-10 border space-y-4 my-4">
+                    <h1 class="font-bold underline text-sm">{{review.user.username}}</h1>
+                    <p class="italic font-medium text-lg">"{{review.content}}"</p>
+                    <p class="text-yellow-700">Ratings : {{review.ratings}}/5</p>
+                    <p class="text-sm">Reviwed at : {{review.timestamps}}</p>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
     </section>
 {% endblock content %}
