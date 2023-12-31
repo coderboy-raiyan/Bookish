@@ -31,8 +31,8 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
-CSRF_TRUSTED_ORIGINS = ['https://bookish-ojq7.onrender.com']
+ALLOWED_HOSTS = ["*", 'https://spin-bookish.vercel.app/']
+CSRF_TRUSTED_ORIGINS = ['https://bookish-ojq7.onrender.com', 'https://spin-bookish.vercel.app']
 
 # Application definition
 
