@@ -15,6 +15,9 @@ import environ
 from pathlib import Path
 import os
 import dj_database_url
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 env = environ.Env()
 environ.Env.read_env()
@@ -49,7 +52,8 @@ INSTALLED_APPS = [
     'books',
     'customers',
     'transactions',
-    'email_system'
+    'email_system',
+    'cloudinary'
 ]
 
 MIDDLEWARE = [
@@ -156,3 +160,11 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = env("EMAIL_PORT")
 EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+
+
+# Cloudinary
+cloudinary.config(
+    cloud_name = env("CLOUDINARY_NAME"),
+    api_key = env("CLOUDINARY_API_KEY"),
+    api_secret = env("CLOUDINARY_API_SECRET")
+)

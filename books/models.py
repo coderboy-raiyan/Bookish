@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from .constants import RATINGS
+from cloudinary.models import CloudinaryField
 # Create your models here.
 
 
@@ -15,7 +16,7 @@ class CategoryModel(models.Model):
 class BookModel(models.Model):
     title = models.CharField(max_length=400)
     description = models.TextField()
-    image = models.ImageField(upload_to="books/media/uploads/")
+    image = CloudinaryField('image')
     categories = models.ManyToManyField(
         CategoryModel, related_name="books")
     borrowing_price = models.DecimalField(
