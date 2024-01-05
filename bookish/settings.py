@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import environ
 from pathlib import Path
+import os
 import dj_database_url
 
 env = environ.Env()
@@ -29,10 +30,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["*", 'https://spin-bookish.vercel.app/']
-CSRF_TRUSTED_ORIGINS = ['https://bookish-ojq7.onrender.com', 'https://spin-bookish.vercel.app']
+ALLOWED_HOSTS = ['.vercel.app','now.sh','127.0.0.1','localhost']
+# CSRF_TRUSTED_ORIGINS = ['https://bookish-ojq7.onrender.com', 'https://spin-bookish.vercel.app']
 
 # Application definition
 
@@ -87,7 +88,7 @@ WSGI_APPLICATION = 'bookish.wsgi.application'
 
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'ENGINE': 'django.db.backends.postgresql',
 #         'NAME': env("DB_NAME"),
 #         'USER': env("DB_USER"),
 #         'PASSWORD': env("DB_PASSWORD"),
@@ -103,6 +104,8 @@ DATABASES = {
         default=env("DB_URI"),
     )
 }
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -140,6 +143,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 MEDIA_URL = '/media/'
+STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
