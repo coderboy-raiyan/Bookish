@@ -33,7 +33,7 @@ SECRET_KEY = env("SECRET_KEY")
 DEBUG = False
 
 ALLOWED_HOSTS = ['.vercel.app','now.sh','127.0.0.1','localhost']
-# CSRF_TRUSTED_ORIGINS = ['https://bookish-ojq7.onrender.com', 'https://spin-bookish.vercel.app']
+CSRF_TRUSTED_ORIGINS = ['https://bookish-ojq7.onrender.com', 'https://bookish-gilt.vercel.app']
 
 # Application definition
 
