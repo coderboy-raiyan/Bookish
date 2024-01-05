@@ -35,8 +35,8 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['.vercel.app','now.sh','127.0.0.1','localhost', 'https://bookish-ojq7.onrender.com']
-CSRF_TRUSTED_ORIGINS = ['https://bookish-ojq7.onrender.com', 'https://bookish-gilt.vercel.app']
+ALLOWED_HOSTS = ["*"]
+
 
 # Application definition
 
